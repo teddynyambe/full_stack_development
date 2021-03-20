@@ -87,6 +87,7 @@ After design and testing a microservice it can be deployment to its happily ther
 # Docker
 # Why docker
 ## Installation
+More details on installation of docker [here](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04)
 ## Running docker as user
 1. add your current user to docker group
 ```console
@@ -117,9 +118,21 @@ teddy adm cdrom sudo dip plugdev lxd microk8s docker
 ```
 Running this deployment refer to kubernetes section
 # Kubernetes - microk8s
+Kube thats the direction computing is taking in the cloud. Its to make the cloud easier to work with when deploying apps/systems
 ## Why kubernetes
 ## Installation
+More eleborate steps [here](https://ubuntu.com/tutorials/install-a-local-kubernetes-with-microk8s#2-deploying-microk8s)
 ## Kubernetes Dashboard
+Once installation of kube is done it was not clear in the documentation above on how to access the dashboard. The kubernetes dashboard is the web-based management too for bubernete infrastreucture, the whole stuff packed in kubectl can be found in the dashboard...giving a visual outlook of the kube infrustructure. Quick acces to the dashboard run the proxy:
+```console
+~ microk8s dashboard-proxy
+Checking if Dashboard is running.
+Dashboard will be available at https://127.0.0.1:10443
+Use the following token to login:
+eyJhbGciOiJSUzI1NiIsImtpZCI6ImtJYnd0ZEp0akJiRDlVNXRLNFd2SVNiRS1RZF9uaGQ1R2tNZ0E1Qm9KY1EifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJkZWZhdWx0LXRva2VuLXhzbjRtIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQubmFtZSI6ImRlZmF1bHQiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiI1NTM2OGRlMi01MjBmLTQ4NDMtYTlmZi0xNWM5OWVlMjY0ZWEiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6a3ViZS1zeXN0ZW06ZGVmYXVsdCJ9.UjytxDCvYOxCLjnlGwXgrUCeGTCv7ie3zW1tvnshfDGD6FrvVsbuxX2qXnJio2Q1pgkDB8MNhf4fTiD3MjeSplXg00-7um_MRmuEk9bRzJhEOXNpt76xzW4NEN0ksOZDYFb9nASasEA5d1mzHVji3HEXTqFHXrLgBkn2AFO-6BQuG3VoIuWSspRUFgXQSJUhoHjJ5igARg2P6-y32kNy-ZUGG3Haja3JKfmDQdAwLfihagQkspXWvbW-UUUyuFwb1LlV9jYq4Gn76Uuc66wTDSnL0FrIdl9f2YbQcqtgTub8v2JTeACAGjlPB-Aib4rnRKpm6Bmfs5HBKeXtyQks2Q
+```
+Gnereates a token. Copy that and head over to the browser on the same machine or point to the IP address of the kube installation. Details of installing own proxy using NGINX can
+
 ## Running a deplyment
 ⋅⋅* Once the image is on hub dot coker it can be deployment to production automatically using kubectl (kubernetes tool for interacting with the kubernetes infrastructure
 ```console
@@ -180,6 +193,8 @@ default       service/microbot-service            NodePort    10.152.183.141   <
 This shows that our deployment is using an internal IP addres (Internals of Kubernetes infrastructure, you cannot even ping it i think ) running inside kube on port 8000 and externally listening on port 31449
 
 ## Creating a proxy to access using Nginx
+### Installation of Nginix reverse proxy
+Details can be found [here](https://linuxize.com/post/nginx-reverse-proxy/)
 ## Common Kube commands
 
 
