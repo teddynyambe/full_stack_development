@@ -30,9 +30,9 @@ During design/testing start with in-memory database such as h2, however after de
 </dependency>
 ```
 + Configure Database (design and testing) - H2
- By default H2 database comes with "sa" as username and blank database, this can be changed in the properties file as follows:
+ By default H2 database comes with "sa" as username and blank database, this can be changed in the application.properties file as follows:
  ```properties
-  spring.datasource.url=jdbc:h2:mem:myappdb
+  spring.datasource.url=jdbc:h2:mem:fappdb
   spring.datasource.driverClassName=org.h2.Driver
   spring.datasource.username=admin
   spring.datasource.password=p@ssw0rd
@@ -41,4 +41,23 @@ During design/testing start with in-memory database such as h2, however after de
 + Configure Database (deployment testing) - MySQL
 
 
+## 1.4. How to pre-load data in the database
+place a _data.sql_ file in the _src/main/resources_ with SQL table definitions like
+
+```sql 
+DROP TABLE IF EXISTS user;
+
+CREATE TABLE user (
+  id INT AUTO_INCREMENT  PRIMARY KEY,
+  username VARCHAR(250) NOT NULL,
+  password VARCHAR(250) NOT NULL,
+  full_name VARCHAR(255) NOT NULL,
+  mobile_number VARCHAR(250) DEFAULT NULL
+);
+
+INSERT INTO billionaires (username, password, full_name, mobile_number) VALUES
+  ('teddy', 'p@ssw0rd', 'Teddy Nyambe', '+260977760473'),
+  ('sharon','p@ssw0rd', 'Sharon Nyambe', '+26097777777'),
+  ('edward','p@ssw0rd', 'Edward Lubasi', '+2766879900');
+```
   
