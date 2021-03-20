@@ -1,2 +1,3 @@
-# full_stack_development
+# Full Stack Development
 Diary of full stack software development
+
