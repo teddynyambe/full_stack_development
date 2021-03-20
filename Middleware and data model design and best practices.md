@@ -12,7 +12,7 @@ Therefore each layer defines its own objects as it will be discussed futher belo
 * Business Layer: Services, Domian Objects
 * Presentation Layer: Controllers, DTOs
 
-## 1.0. Persistence (Datae Model): Design thought
+## 1.0. Persistence (Entity/Repository): Design thought
 Think its best to start from the data (model) and group your way up to the busines and presentation layers.
 ### 1.1. Create Spring boot project
 First head to [start.spring.io] and enter the project details
