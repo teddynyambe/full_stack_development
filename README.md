@@ -1,24 +1,24 @@
-# Full Stack Development
+# 1. Full Stack Development
 Diary of full stack software development
 
-# Introduction
+# 2. Introduction
 There is need to document the entire process of software devlopment with practical steps which are easy to follow for others to learn from. This documentation provides very specific steps on projects management, identification of requirements, software development life cycle, tools and deployment all best on enterprise and best industry practices. The first version of this document pays particular attention to software development - tools, langauges deployment thoughts in form of my go to manual of documented steps on how to achieve particular objectives or go around a nuggy problem in software development and design. ALso some decison choices over convention in some cases.
 
-# Project Management
+# 3. Project Management
 
-# Full Stack
+# 4. Full Stack
 I use full stuck meaning from deisgn and developemnt - front end (View), middledware (Control), and backend (Model/Data) using microservices to decouple these design concerns to deployment considering aspects of containerising and software orchestration (automation of depoyment/management) using docker and kubernetes. Further this is looks at continous improving of software and applying the patches with minimals disruption of the system.
 ### Design and development Best Practices
 
-# Tools and Languages
+# 5. Tools and Languages
 
-# Front End - View
+# 6. Front End - View
 
 In designing the client, Ia am looking at having a client flexiibility to be ugraded an improved on without looking too much about the middle ware and the data. The tools I have decided to use is flutter. I can build mobile, web and desktop applications from the same code base.
 
-## Installation of flutter
-
-## Creating a project
+## Flutter - Mobile
+### Installation
+### Creating a project
 
 ```console
 ~ flutter create [folder_name]
@@ -28,7 +28,7 @@ In designing the client, Ia am looking at having a client flexiibility to be ugr
 ```console
 ~ mkdir [folder_name] && cd [folder_name] && flutter create .
 ```
-## Running flutter application
+### Running flutter application
 You can check what devices are available and running first:
 ```console
 ~ flutter devices
@@ -62,30 +62,29 @@ as in the ff example
 ```console
 ~ flutter run -d chrome --no-sound-null-safet
 ```
-# Middleware - Controller
+# 6. Middleware - Controller
 I chose java and spring-boot to build the middleware. 
-# Data - Model
+# 7. Data - Model
 
-# Overal architectural design and decision
+# 8. Overal architectural design and decision
 
-# Micros services
+# 9. Microsservices
+## Why microservices
+## Seperation of business concern
+# 10. Authentication
 
-# Seperation of business concern
+# 11. Versioning
 
-# Authentication
+# 12. Git/GitHut
 
-# Versioning
-
-# Git/GitHut
-
-# Deployment and Maintenance
+# 13. Deployment and Maintenance
 ## Deplyment
 Docker and kubernetes are for packaging, automating and managing the completed system.
 ## Java Deployment
 After design and testing a microservice it can be deployment to its happily thereafter home in the cloud. An image needs to be created for it and uploaded to the [docker hub](http://hub.docker.com) an account is required.
 
-# Docker
-# Why docker
+# 14. Docker
+## Why docker
 ## Installation
 More details on installation of docker [here](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04)
 ## Running docker as user
@@ -117,7 +116,7 @@ teddy adm cdrom sudo dip plugdev lxd microk8s docker
 ~ docker pull lubasi/fapp1-farm-authentication:0.0.1-SNAPSHOT
 ```
 Running this deployment refer to kubernetes section
-# Kubernetes - microk8s
+# 15. Kubernetes - microk8s
 Kube thats the direction computing is taking in the cloud. Its to make the cloud easier to work with when deploying apps/systems
 ## Why kubernetes
 ## Installation
