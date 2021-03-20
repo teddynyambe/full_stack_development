@@ -135,7 +135,7 @@ NAME       READY   UP-TO-DATE   AVAILABLE   AGE
 microbot   3/3     3            3           17h
 fapp1      1/1     1            1           12h
 ```
-⋅⋅* View pods
+View pods
 ```console
 ~ microk8s.kubectl get pod
 NAME                        READY   STATUS    RESTARTS   AGE
@@ -144,28 +144,28 @@ microbot-5f5499d479-9rr6d   1/1     Running   0          17h
 microbot-5f5499d479-pdrnj   1/1     Running   0          14h
 fapp1-8676856789-kjkl6      1/1     Running   0          13h
 ```
-⋅⋅* To view logs if the pod if it was successful deployed
+To view logs if the pod if it was successful deployed
 ```console
 ~ microk8s.kubectl logs -f fapp1-8676856789-kjkl6
 ```
-⋅⋅* Scale a deployment to run multiple copies of itself with its own resources
+Scale a deployment to run multiple copies of itself with its own resources
 ```console
 ~ microk8s.kubectl scale deployment fapp1 --replicas=3
 deployment.apps/fapp1 scaled
 ```
-⋅⋅* View scaled up/down deployments
+View scaled up/down deployments
 ```console
 microk8s.kubectl get deployment
 NAME       READY   UP-TO-DATE   AVAILABLE   AGE
 microbot   3/3     3            3           17h
-**[fapp1      3/3     3            3           13h]**
+fapp1      3/3     3            3           13h
 ```
 ## Expose a service
-..* Expose service running on kube
+Expose service running on kube
 ```console
 ~ microk8s.kubectl expose deployment fapp1 --type=NodePort --port 8000 --name=fapp1-service
 ```
-..* To view the deployed service and view what ip address/port it is using
+To view the deployed service and view what ip address/port it is using
 ```console
 microk8s.kubectl get all --all-namespaces |grep service
 
