@@ -54,7 +54,7 @@ after changes pubspec.yaml file or you do a clean like in above run the update d
 ~ flutter pub run build_runner build
 ```
 ## Null Safety - Dart
-sometimes if there is no compatible code add the switch
+sometimes if there is no compatible code add the switch. More details [here](https://fantashit.com/bad-state-insecure-http-is-not-allowed-by-platform-http-friend-angeleic-com-a62c4605e4bdac1c9b4dcd763b298742-jpg/)
 ```console
 --no-sound-null-safety
 ```
