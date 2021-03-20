@@ -121,13 +121,13 @@ Running this deployment refer to kubernetes section
 ## Installation
 ## Kubernetes Dashboard
 ## Running a deplyment
-..* Once the image is on hub dot coker it can be deployment to production automatically using kubectl (kubernetes tool for interacting with the kubernetes infrastructure
+⋅⋅* Once the image is on hub dot coker it can be deployment to production automatically using kubectl (kubernetes tool for interacting with the kubernetes infrastructure
 ```console
 ~ microk8s.kubectl create deployment fapp1 --image=lubasi/fapp1-farm-authentication:0.0.1-SNAPSHOT
 ```
 This command create pod (single unit of deployment constains images, kubelet coordinating the pod, networking capability) to view the view a deployment and pod:
 
-..* View deployment created
+⋅⋅* View deployment created
 ```console
 ~ microk8s.kubectl get deployment
 
@@ -135,7 +135,7 @@ NAME       READY   UP-TO-DATE   AVAILABLE   AGE
 microbot   3/3     3            3           17h
 fapp1      1/1     1            1           12h
 ```
-..* View pods
+⋅⋅* View pods
 ```console
 ~ microk8s.kubectl get pod
 NAME                        READY   STATUS    RESTARTS   AGE
@@ -144,21 +144,21 @@ microbot-5f5499d479-9rr6d   1/1     Running   0          17h
 microbot-5f5499d479-pdrnj   1/1     Running   0          14h
 fapp1-8676856789-kjkl6      1/1     Running   0          13h
 ```
-..* To view logs if the pod if it was successful deployed
+⋅⋅* To view logs if the pod if it was successful deployed
 ```console
 ~ microk8s.kubectl logs -f fapp1-8676856789-kjkl6
 ```
-..* Scale a deployment to run multiple copies of itself with its own resources
+⋅⋅* Scale a deployment to run multiple copies of itself with its own resources
 ```console
 ~ microk8s.kubectl scale deployment fapp1 --replicas=3
 deployment.apps/fapp1 scaled
 ```
-..* View scaled up/down deployments
+⋅⋅* View scaled up/down deployments
 ```console
 microk8s.kubectl get deployment
 NAME       READY   UP-TO-DATE   AVAILABLE   AGE
 microbot   3/3     3            3           17h
-**fapp1      3/3     3            3           13h**
+**[fapp1      3/3     3            3           13h]**
 ```
 ## Expose a service
 ..* Expose service running on kube
