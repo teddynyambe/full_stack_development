@@ -124,6 +124,6 @@ TO-DO
 
 The way the Enity and Repository have been defined, they automatically communicate with the underlying database server. 
 
-## 2.0 Business Layer
+## 2.0. Business Layer
 
 
