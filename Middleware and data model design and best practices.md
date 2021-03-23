@@ -9,7 +9,7 @@ In view of the aforemention its necessary to look at it as having the following 
 Therefore each layer defines its own objects as it will be discussed futher below down:
 
 * Persistence Layer: Repositories, Entities
-* Business Layer: Services, Domian Objects
+* Business Layer: Services, Domain Objects
 * Presentation Layer: Controllers, DTOs
 
 ## 1.0. Persistence (Entity/Repository): Design thought
@@ -125,5 +125,74 @@ TO-DO
 The way the Enity and Repository have been defined, they automatically communicate with the underlying database server. 
 
 ## 2.0. Business Layer
+The busines layer models the business domain under consideration, it has services representing the business logic. It includes manipulation of the persisrence.
+
+The interface decribing the contract
+```java
+public interface CurrencyExchangeRepository 
+	extends JpaRepository<CurrencyExchange, Long> {
+	CurrencyExchange findByFromAndTo(String from, String to);
+}
+```
+
+Concrete class showing the implementation
+
+```java
+@Service
+public class RegisterUserImpl implements RegisterUser{
+    final UserRepository userRepository;
+
+    public RegisterUserImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    @Override
+    public User addNew(User user) {
+        return userRepository.save(user);
+    }
+}
+```
+## 3.0. Application/Presentation Layer
+This layer should abstract the business and the peresistence layer to the viewer of the application, here data is hidden, only exposing what is necessary through the use of data transfer objects (DTOs).
+
+The controller class is a s follows:
+
+```java
+@RestController
+@RequestMapping("/user")
+public class Auth {
+    private RegisterUserService registerUserService;
+    private final ModelMapper modelMapper;
+
+    public Auth(RegisterUserService registerUserService, ModelMapper modelMapper) {
+        this.registerUserService = registerUserService;
+        this.modelMapper = modelMapper;
+    }
+
+    @PostMapping
+    public CreatedUserDTO ceate(@RequestBody NewUserDTO newUserDTO) {
+        User user = registerUserService.addNew(dtoToEntity(newUserDTO));
+        CreatedUserDTO createdUserDTO = entityToDto(user);
+        createdUserDTO.setCreationStatus(true);
+        return createdUserDTO;
+    }
+
+    private CreatedUserDTO entityToDto(User user) {
+        return modelMapper.map(user, CreatedUserDTO.class);
+    }
+
+    private User dtoToEntity(NewUserDTO newUserDTO) {
+        return modelMapper.map(newUserDTO, User.class);
+    }
+}
+```
+### What makes a controller a REST service
+The above controller is annotated by @RestController indicating to the spring framework that the annoted class runs as a REST service during runtime. 
+
+* @RestController => @Controller and @RequestMapping
+* @Controller => @Component and includies capabilities of being scanned to include client presentation service via @RequestMapping
+* @GetMapping is a shortcut for @RequestMapping(method = RequestMethod.GET)
+* @ResponseBody serializes a return object with JSON before being returned
+* @RestController => @Controller and @ResponseBody, @ResponseBody has now become redunant.
 
 
