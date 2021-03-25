@@ -125,13 +125,53 @@ TO-DO
 The way the Enity and Repository have been defined, they automatically communicate with the underlying database server. 
 
 ## 2.0. Business Layer
-The busines layer models the business domain under consideration, it has services representing the business logic. It includes manipulation of the persisrence.
+The busines layer models the business domain under consideration, it has services representing the business logic. It includes manipulation of the persitence layer that are masked using data transfer models (DTOs). The shared DTOs are used to transfer data between the business model and the presentation model. Normally there will be a lot of data conversion between the business layer and the presentation layer. This practically mean that data managed in the business layer will be entities from the persistence there. It is not advisable to work directly with entities in the business layer. Therefore entities data need need to be transfered to DTOs. This can easily be achieved through the use of the model mapper. Spring provides an implemenation of the model matter by adding its dependency as follows:
+
+```xml
+<dependency>
+	<groupId>org.modelmapper</groupId>
+	<artifactId>modelmapper</artifactId>
+	<version>2.3.8</version>
+</dependency>
+```
+The typical use case and best practice for model mapper is to provide for it globally as a bean. This can be done under a utility class annotated as a @component as follows:
+```java
+@Component
+public class StartUps {
+    @Bean
+    ModelMapper modelMapper() {
+        return new ModelMapper();
+    }
+}
+```
+
+This makes it available in the container at statrup. It can be used in any class for ease conversion as follows:
+```java
+@Service
+public class UserRegistrationServiceImpl implements UserRegistrationService{
+    ModelMapper modelMapper;
+    UserRegistrationServiceImpl(ModelMapper modelMapper){
+        this.modelMapper = modelMapper;
+        this.userRepository = userRepository;
+    }
+
+    @Override
+    public UserDTO createUser(NewUserDTO newUserDTO) {
+        User user = modelMapper.map(newUserDTO, User.class); // Usage
+        user.setUserId(UUID.randomUUID().toString());
+        user.setEncryptedPasswoprd("Testing");
+        User savedUser = userRepository.save(user);
+
+        return modelMapper.map(savedUser, UserDTO.class); // Usage
+    }
+  }
+``
 
 The interface decribing the contract
 ```java
-public interface CurrencyExchangeRepository 
-	extends JpaRepository<CurrencyExchange, Long> {
-	CurrencyExchange findByFromAndTo(String from, String to);
+public interface UserRegistrationService {
+    UserDTO createUser(NewUserDTO newUserDTO);
+    UserDTO findByUsername(String username);
 }
 ```
 
@@ -139,21 +179,34 @@ Concrete class showing the implementation
 
 ```java
 @Service
-public class RegisterUserImpl implements RegisterUser{
-    final UserRepository userRepository;
-
-    public RegisterUserImpl(UserRepository userRepository) {
+public class UserRegistrationServiceImpl implements UserRegistrationService{
+    ModelMapper modelMapper;
+    UserRepository userRepository;
+    UserRegistrationServiceImpl(ModelMapper modelMapper, UserRepository userRepository){
+        this.modelMapper = modelMapper;
         this.userRepository = userRepository;
     }
 
     @Override
-    public User addNew(User user) {
-        return userRepository.save(user);
+    public UserDTO createUser(NewUserDTO newUserDTO) {
+        User user = modelMapper.map(newUserDTO, User.class);
+        user.setUserId(UUID.randomUUID().toString());
+        user.setEncryptedPasswoprd("Testing");
+        User savedUser = userRepository.save(user);
+        return modelMapper.map(savedUser, UserDTO.class);
+    }
+
+    @Override
+    public UserDTO findByUsername(String username) {
+        User userByUsername = userRepository.findByUsername(username);
+        if(userByUsername == null)
+            return null;
+        return modelMapper.map(userByUsername, UserDTO.class);
     }
 }
 ```
 ## 3.0. Application/Presentation Layer
-This layer should abstract the business and the peresistence layer to the viewer of the application, here data is hidden, only exposing what is necessary through the use of data transfer objects (DTOs).
+This layer should abstract the business and the peresistence layer to the viewer of the application, here data should be hidden as much as possible, only exposing what is necessary through the use of data models and shared data transfer objects.
 
 The controller class is a s follows:
 
