@@ -149,8 +149,8 @@ This makes it available in the container at statrup. It can be used in any class
 ```java
 @Service
 public class UserRegistrationServiceImpl implements UserRegistrationService{
-    ModelMapper modelMapper;
-    UserRegistrationServiceImpl(ModelMapper modelMapper){
+    ModelMapper modelMapper; 
+    UserRegistrationServiceImpl(ModelMapper modelMapper){ // model mapper bean injected here
         this.modelMapper = modelMapper;
         this.userRepository = userRepository;
     }
@@ -248,4 +248,65 @@ The above controller is annotated by @RestController indicating to the spring fr
 * @ResponseBody serializes a return object with JSON before being returned
 * @RestController => @Controller and @ResponseBody, @ResponseBody has now become redunant.
 
+
+### 3.1. Exception Handline
+Many thoughts are available on how to handle exceptions. I am currently handling exceptions in the controller proecting the business layer and the persistence. I am using the @ControllerAdvise which is handling errors across controllers. Custome error handlers are defined with overrideing spring exception handling mechanism. 
+
+#### Overide messga structure
+Agree on business or domain area structure of what your error structure should look like and represent it in class model as follows:
+
+```java
+public class FAPPExceptionResponse {
+    private  Date timestamp;
+    private String msg;
+    private String details;
+
+    public FAPPExceptionResponse(Date timestamp, String message, String details) {
+        super();
+        this.timestamp = timestamp;
+        this.msg = message;
+        this.details = details;
+	
+/* getters */
+
+}
+```
+Then then create anticipated error classes that will handle specific excptions in the application. Say for instance user not found scenerio
+
+```java
+@ResponseStatus(HttpStatus.NOT_FOUND)
+public class FAPPUserNotFoundException extends RuntimeException {
+    public FAPPUserNotFoundException(String message) {
+        super(message);
+    }
+}
+```
+This class will be used in a controller to throw an exception once a user is not found as follows:
+
+```java
+    @GetMapping(/{id})
+    public ResponseEntity<CreatedUserModel> findUser(@PathVariable String id) {
+        UserDTO userDto = userRegistrationService.findById(id);
+    
+        if(userDto == null) {
+           // Code here
+        } else {
+            throw new FAPPUserNotFoundException("User not found");
+        }
+    }
+```
+To glue the above configuration and setup, override the defualt spring reaction to exception so that custome error structure and handler setup above can be invoked instead of the defualt spring exception scheme. The glue is as follows:
+
+```java
+@ControllerAdvice //This informs all the controllers to use this for exception response
+@RestController //Its a rest controller and will send exceptions to clients
+public class FAAPCustomizedResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
+
+    @ExceptionHandler(FAPPUserNotFoundException.class) //Exception handler
+    public final ResponseEntity<Object> handleAllExceptions(Exception e, WebRequest request) {
+        FAPPExceptionResponse exceptionResponse = new FAPPExceptionResponse(new Date(), e.getMessage(), request.getDescription(false)); //Specicify exception response structure
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
+    }
+}
+```
 
