@@ -285,7 +285,7 @@ This class will be used in a controller to throw an exception once a user is not
 
 ```java
     @GetMapping(/{id})
-    public ResponseEntity<CreatedUserModel> findUser(@PathVariable String id) {
+    public ResponseEntity<UserModel> findUser(@PathVariable String id) {
         UserDTO userDto = userRegistrationService.findById(id);
     
         if(userDto == null) {
