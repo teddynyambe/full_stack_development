@@ -165,7 +165,7 @@ public class UserRegistrationServiceImpl implements UserRegistrationService{
         return modelMapper.map(savedUser, UserDTO.class); // Usage
     }
   }
-``
+```
 
 The interface decribing the contract
 ```java
