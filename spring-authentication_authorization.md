@@ -97,7 +97,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 }
 ```
 
-    Once the filter is registered and its collects the username and password from the request to authenticate spring security need to be told where to compare these login credentials with. This is achieved by overriding configure method of the Websecurity class that extends the WebSecurityConfiguererAdapter as follows:
+Once the filter is registered and its collects the username and password from the request to authenticate spring security need to be told where to compare these login credentials with. This is achieved by overriding configure method of the Websecurity class that extends the WebSecurityConfiguererAdapter as follows:
     
     ```java
     
