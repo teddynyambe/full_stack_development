@@ -1,4 +1,4 @@
-# Spring Autnetication
+# Spring Authentication
 Spring provides authentication framework, the following is how to plug in the framework in the application.
 
 ## Add dependency
