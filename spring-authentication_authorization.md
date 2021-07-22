@@ -99,17 +99,16 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
 Once the filter is registered and its collects the username and password from the request to authenticate spring security need to be told where to compare these login credentials with. This is achieved by overriding configure method of the Websecurity class that extends the WebSecurityConfiguererAdapter as follows:
     
-    ```java
+```java
     
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userRegistrationService).passwordEncoder(bCryptPasswordEncoder);
     }
-    
-    ```
-  The authentication manager builder specifies the user authentication scheme, in this case our custom UserRegistration class that needs to extend UserDtails of the springframework
+```
+The authentication manager builder specifies the user authentication scheme, in this case our custom UserRegistration class that needs to extend UserDtails of the springframework
   
-  ```java
+ ```java
   public interface UserRegistrationService extends UserDetailsService {
     UserDTO createUser(NewUserDTO newUserDTO);
     UserDTO findByUsername(String username);
