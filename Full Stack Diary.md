@@ -141,7 +141,6 @@ mvn dependency:tree
 ```
 2. Pushing to hub dot docker
 
-```
 ```console
 ~ docker push lubasi/fapp1-farm-authentication:0.0.1-SNAPSHOT
 ```
