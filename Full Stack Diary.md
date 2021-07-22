@@ -104,10 +104,42 @@ teddy adm cdrom sudo dip plugdev lxd microk8s docker
 ## Common docker commands 
 ## Deploying Java to production using docker
 1. Packaging
+Ensure the POM.xml file under build has the configuration tag as follows:
+
+```xml
+<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<image>
+						<name>lubasi/demo_security-${project.artifactId}:${project.version}</name>
+					</image>
+					<pullPolicy>IF_NOT_PRESENT</pullPolicy>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 ```console
 ~ mvn spring-boot:build-image -DskipTest
 ```
+
+NOTE: An error such as this one may occure
+
+```console
+[ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:2.5.2:build-image (default-cli) on project demo-security: Execution default-cli of goal org.springframework.boot:spring-boot-maven-plugin:2.5.2:build-image failed: No digest found -> [Help 1]
+```
+This may be as result of missing dependecies and a possible solution is to update the dependency tree as follows:
+
+```console
+mvn dependency:tree
+
+```
 2. Pushing to hub dot docker
+
+```
 ```console
 ~ docker push lubasi/fapp1-farm-authentication:0.0.1-SNAPSHOT
 ```
