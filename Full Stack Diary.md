@@ -121,6 +121,8 @@ Ensure the POM.xml file under build has the configuration tag as follows:
 			</plugin>
 		</plugins>
 	</build>
+```
+After updating the pom.xml file package the application as follows:
 
 ```console
 ~ mvn spring-boot:build-image -DskipTest
