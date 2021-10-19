@@ -4,9 +4,9 @@ Read more: https://www.java67.com/2019/06/javaxnetsslsslhandshakeexception-PKIX-
 
 Some times a target the ssl server public key certificate may change and your applicationmay fail producing the following error:
 
-```code```
+```text
 javax.net.ssl.SSLHandshakeException: sun.security.validator.ValidatorException:
  PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException:
  unable to find valid certification path to requested target
- ```code```
+ ```
 
